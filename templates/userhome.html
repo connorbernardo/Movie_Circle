@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+    <title>Movie Ratings App</title>
+</head>
+<body>
+    <h1>Welcome {{ username }} !</h1>
+    <p>
+        <form action="/userhome" method="POST">
+            <input type="text" name="movie_query" placeholder="find a movie">
+            <button type="submit">search</button>
+        </form>
+
+
+        {% if movies %}
+            <div class="movie-grid">
+                {% for m in movies %}
+                    <div class="poster-container" data-title="{{ m['Title'] }}" data-imdb="{{ m['imdbID'] }}">
+                    <img src="{{ m['Poster'] }}" alt="{{ m['Title'] }}" width="175">
+                    <div class="poster-overlay">+</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {%endif%}
+        
+    <script>
+        // JS for pop-up rating 
+        document.querySelectorAll(".poster-container").forEach(function(container) {
+            container.addEventListener("click",function(){
+                window.open('/rate_movie', 'PopupWindow', 'width=400,height=300');
+                
+                // pass movie data 
+                let title = this.dataset.title;
+                let imdbId = this.dataset.imdb;
+                let url = `/rate_movie?title=${title}&imdb=${imdbId}`; // pass specific movie url
+                window.open(url, 'PopupWindow', 'width=400,height=300,left=200, right=200');
+
+                // debug 
+                console.log("movie clicked");
+                console.log("Title:", title);
+                console.log("IMDB ID: ", imdbId);
+            })
+        })
+    </script>
+    </p>
+
+
+</body>
+</html>

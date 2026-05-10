@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+    <title>Login - Movie Ratings App</title>
+</head>
+<body>
+    <h1> login </h1>
+    <form method="POST" action="/login">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">create account</button>
+        <button type="submit">Login</button>
+</body>
+</html>
